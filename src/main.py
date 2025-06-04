@@ -631,32 +631,32 @@ def serve(path):
     return send_from_directory(app.static_folder, 'index.html')
 
 # Ініціалізація бази даних та створення адміністратора
-@app.before_first_request
 def initialize_database():
-    db.create_all()
+    with app.app_context():
+        db.create_all()
     
-    # Створення адміністратора, якщо він не існує
-    admin = User.query.filter_by(email='admin@lending.ua').first()
-    if not admin:
-        admin = User(
-            email='admin@lending.ua',
-            password=generate_password_hash('admin123'),
-            name='Administrator',
-            is_admin=True
-        )
-        db.session.add(admin)
+        # Створення адміністратора, якщо він не існує
+        admin = User.query.filter_by(email='admin@lending.ua').first()
+        if not admin:
+            admin = User(
+                email='admin@lending.ua',
+                password=generate_password_hash('admin123'),
+                name='Administrator',
+                is_admin=True
+            )
+            db.session.add(admin)
         
-        # Створення категорій
-        categories = [
-            Category(name='Мобільні аксесуари', slug='mobile-accessories'),
-            Category(name='Б/У ноутбуки', slug='used-laptops'),
-            Category(name='Б/У телефони', slug='used-phones')
-        ]
-        
-        for category in categories:
-            db.session.add(category)
-        
-        db.session.commit()
+            # Створення категорій
+            categories = [
+                Category(name='Мобільні аксесуари', slug='mobile-accessories'),
+                Category(name='Б/У ноутбуки', slug='used-laptops'),
+                Category(name='Б/У телефони', slug='used-phones')
+            ]
+            
+            for category in categories:
+                db.session.add(category)
+            
+            db.session.commit()
         
         # Створення тестових товарів
         products = [
@@ -698,10 +698,12 @@ def initialize_database():
             )
         ]
         
-        for product in products:
-            db.session.add(product)
-        
-        db.session.commit()
+            for product in products:
+                db.session.add(product)
+            
+            db.session.commit()
+        # Виклик функції ініціалізації
+        initialize_database()
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
