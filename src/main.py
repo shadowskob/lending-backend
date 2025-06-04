@@ -658,53 +658,53 @@ def initialize_database():
             
             db.session.commit()
         
-        # Створення тестових товарів
-        products = [
-            Product(
-                name='Чохол для iPhone 13 силіконовий прозорий',
-                description='Якісний силіконовий чохол для iPhone 13. Прозорий, не жовтіє з часом.',
-                price=299,
-                old_price=399,
-                image='/images/products/case-iphone.jpg',
-                stock=15,
-                category_id=1
-            ),
-            Product(
-                name='Бездротові навушники TWS з активним шумопоглинанням',
-                description='Бездротові навушники з активним шумопоглинанням, Bluetooth 5.2, до 6 годин роботи.',
-                price=1299,
-                old_price=1599,
-                image='/images/products/headphones.jpg',
-                stock=8,
-                category_id=1
-            ),
-            Product(
-                name='Ноутбук Dell Latitude E7470 (б/у)',
-                description='Intel Core i5-6300U, 8GB RAM, 256GB SSD, 14" Full HD, Windows 10 Pro.',
-                price=8999,
-                old_price=10999,
-                image='/images/products/laptop-dell.jpg',
-                stock=3,
-                category_id=2
-            ),
-            Product(
-                name='iPhone 11 64GB (б/у)',
-                description='Стан 9/10, повний комплект, гарантія 3 місяці.',
-                price=12999,
-                old_price=14999,
-                image='/images/products/iphone-11.jpg',
-                stock=5,
-                category_id=3
-            )
-        ]
-        
+            # Створення тестових товарів
+            products = [
+                Product(
+                    name='Чохол для iPhone 13 силіконовий прозорий',
+                    description='Якісний силіконовий чохол для iPhone 13. Прозорий, не жовтіє з часом.',
+                    price=299,
+                    old_price=399,
+                    image='/images/products/case-iphone.jpg',
+                    stock=15,
+                    category_id=1
+                ),
+                Product(
+                    name='Бездротові навушники TWS з активним шумопоглинанням',
+                    description='Бездротові навушники з активним шумопоглинанням, Bluetooth 5.2, до 6 годин роботи.',
+                    price=1299,
+                    old_price=1599,
+                    image='/images/products/headphones.jpg',
+                    stock=8,
+                    category_id=1
+                ),
+                Product(
+                    name='Ноутбук Dell Latitude E7470 (б/у)',
+                    description='Intel Core i5-6300U, 8GB RAM, 256GB SSD, 14" Full HD, Windows 10 Pro.',
+                    price=8999,
+                    old_price=10999,
+                    image='/images/products/laptop-dell.jpg',
+                    stock=3,
+                    category_id=2
+                ),
+                Product(
+                    name='iPhone 11 64GB (б/у)',
+                    description='Стан 9/10, повний комплект, гарантія 3 місяці.',
+                    price=12999,
+                    old_price=14999,
+                    image='/images/products/iphone-11.jpg',
+                    stock=5,
+                    category_id=3
+                )
+            ]
+            
             for product in products:
                 db.session.add(product)
             
             db.session.commit()
-        # Виклик функції ініціалізації
-        initialize_database()
 
+# Головна точка запуску
 if __name__ == '__main__':
+    initialize_database()  # Викликаємо ініціалізацію перед запуском
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
